@@ -7,8 +7,14 @@ if [ -n "$SSH_CLIENT" ]; then
   local host_color="red"
 fi
 
+function virtenv_indicator {
+if [ ! -z "$VIRTUAL_ENV" ]; then
+    basename $VIRTUAL_ENV
+fi
+}
+
 PROMPT='
-%{$fg_bold[grey]%}[%{$reset_color%}%{$fg_bold[${host_color}]%}%n@%m%{$reset_color%}%{$fg_bold[grey]%}]%{$reset_color%} %{$fg_bold[blue]%}%10c%{$reset_color%} $(git_prompt_info) $(git_remote_status)
+%{$fg_bold[grey]%}[%{$reset_color%}%{$fg_bold[${host_color}]%}%n@%m%{$reset_color%}%{$fg_bold[grey]%}]%{$reset_color%} %{$fg_bold[blue]%}%10c%{$reset_color%} %{$fg_bold[cyan]%}$(virtenv_indicator)%{$reset_color%} $(git_prompt_info) $(git_remote_status)
 %{$fg_bold[cyan]%}❯%{$reset_color%} '
 
 
